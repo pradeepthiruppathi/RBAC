@@ -1,0 +1,155 @@
+/* Main Container */
+.users-container {
+  margin: 20px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Header */
+.users-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.users-header h2 {
+  margin: 5px 20px 20px;
+  font-size: 24px;
+}
+
+/* Sorting and Searching Section */
+.filter-section {
+  display: flex;
+  justify-content: flex-end; /* Align to the right */
+  gap: 0px; /* Space between search and sorting */
+  margin: -30px 40px 35px;
+}
+
+.filter-section input,
+.filter-section select {
+  padding: 8px;
+  margin: 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Table */
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff; /* White background for the user data table */
+  border-radius: 8px; /* Rounded corners for the table */
+}
+
+.users-table th, .users-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Actions Cell */
+.actions-cell button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.actions-cell button:hover {
+  color: #ff5722;
+}
+
+/* Status Box */
+.status-box {
+  padding: 5px 15px;
+  border-radius: 25px;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+}
+
+.status-box.active {
+  background-color: #4CAF50;
+  color: white;
+  border: 2px solid #388e3c;
+}
+
+.status-box.inactive {
+  background-color: #f44336;
+  color: white;
+  border: 2px solid #d32f2f;
+}
+
+/* Action Buttons Container */
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: 7px 20px;
+  border-radius: 10px; /* Rounded corners for the container */
+}
+
+/* Action Buttons */
+.action-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.action-btn:hover {
+  background-color: rgba(50, 38, 114, 255);
+  color: white;
+  border: 1px solid rgb(255, 255, 255); /* White border on hover */
+}
+
+.create-btn {
+  background-color: #ffffff;
+  color: black;
+}
+
+.edit-btn {
+  background-color: #ffffff;
+  color: black;
+}
+
+.view-btn {
+  background-color: #ffffff;
+  color: black;
+}
+
+.download-btn {
+  background-color: #ffffff;
+  color: black;
+  border-radius: 8px;
+}
+.download-btn:hover{
+  background-color: rgba(50, 38, 114, 255);
+  color: white;
+  border: 1px solid rgb(255, 255, 255); /* White border on hover */
+  
+}
+
+.action-btn svg {
+  font-size: 18px;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

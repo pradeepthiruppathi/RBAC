@@ -1,0 +1,107 @@
+.create-user-form-container {
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 400px;
+  margin: 20px auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.create-user-form-header {
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.create-user-form-group {
+  margin-bottom: 15px;
+}
+
+.create-user-form-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.create-user-form-input,
+.create-user-form-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.create-user-form-dropdown-container {
+  position: relative;
+}
+
+.create-user-form-dropdown-header {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #fff;
+}
+
+.create-user-form-dropdown-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.create-user-form-dropdown-option {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.create-user-form-dropdown-option:hover {
+  background: #f0f0f0;
+}
+
+.create-user-form-checkbox {
+  margin-right: 10px;
+}
+
+.create-user-form-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.create-user-form-submit-btn,
+.create-user-form-cancel-btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.create-user-form-submit-btn {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.create-user-form-submit-btn:hover {
+  background-color: #0056b3;
+}
+
+.create-user-form-cancel-btn {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.create-user-form-cancel-btn:hover {
+  background-color: #c0392b;
+}

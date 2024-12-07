@@ -1,0 +1,85 @@
+/* Container for Activity Log */
+.activity-log-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.activity-log-container h3 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+/* Flexbox container to align charts side by side */
+.chart-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap; /* Allow wrapping on small screens */
+}
+
+/* Each chart container */
+.chart-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 48%;  /* Make charts take up almost half width each */
+  box-sizing: border-box;
+}
+
+/* Ensure charts are responsive */
+@media screen and (max-width: 768px) {
+  .chart-row {
+    flex-direction: column;  /* Stack charts vertically on smaller screens */
+    align-items: center;  /* Center the stacked charts */
+  }
+
+  .chart-container {
+    width: 100%;  /* Take up full width for small screens */
+    margin-bottom: 20px; /* Add some space between stacked charts */
+  }
+}
+
+/* Styling for the BarChart and LineChart */
+.recharts-surface {
+  border-radius: 8px;
+}
+
+/* Styling for the bars in BarChart */
+.recharts-bar-rectangle {
+  border-radius: 4px;
+}
+
+/* Add a responsive design to ensure everything looks good on all screen sizes */
+@media screen and (max-width: 768px) {
+  .activity-log-container {
+    padding: 15px;
+  }
+
+  .chart-container {
+    width: 100%;  /* Stack charts on top of each other on smaller screens */
+  }
+}
+
+/* Style for chart legend */
+.recharts-legend-item {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Tooltip styling */
+.recharts-tooltip-item {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.recharts-tooltip-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
