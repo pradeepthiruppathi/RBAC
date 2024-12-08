@@ -74,3 +74,14 @@ code {
     padding: 10px;
   }
 }
+@media (max-width: 768px) {
+    /* Adjust layout for mobile screens */
+    .navbar {
+        /* Example of adjusting navbar for mobile view */
+        flex-direction: column;
+    }
+    .content {
+        /* Adjust content layout */
+        padding: 10px;
+    }
+}
