@@ -1,5 +1,3 @@
-Here's an updated version of the README with the username and password details included:
-
 ---
 
 # Role-Based Access Control (RBAC) with React
