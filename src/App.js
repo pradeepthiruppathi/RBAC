@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Layout from './components/Layout'; // Import the Layout component
 import Dashboard from './components/Dashboard';
 import Users from './components/Users';
