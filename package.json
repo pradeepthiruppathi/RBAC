@@ -23,6 +23,12 @@
   "devDependencies": {
     "gh-pages": "^4.0.0"
   },
+<<<<<<< HEAD
+=======
+  "devDependencies": {
+    "gh-pages": "^4.0.0"
+  },
+>>>>>>> cbc259b84b7e5385db40b4ea8f6aef8a8b228fa6
   "eslintConfig": {
     "extends": [
       "react-app",
