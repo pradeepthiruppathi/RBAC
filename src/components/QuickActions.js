@@ -9,7 +9,7 @@ function QuickActions() {
   return (
     <div className="qa-container">
       <h1 style={{color:"white"}}>Quick Actions</h1>
-      <button className="qa-action-button" onClick={() => navigate('/users/create')}>
+      <button className="qa-action-button" onClick={() => navigate('/users')}>
         <FaUserPlus className="qa-action-icon" />
         Create User
       </button>

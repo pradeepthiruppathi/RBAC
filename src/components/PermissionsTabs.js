@@ -2,7 +2,15 @@ import React from "react";
 import { FaUserShield, FaDatabase, FaTools } from "react-icons/fa";
 import PermissionsTable from "./PermissionsTable";
 
-const PermissionsTabs = ({ activeTab, onTabChange, permissions, customPermissions, onEdit, onDelete }) => {
+const PermissionsTabs = ({
+  activeTab,
+  onTabChange,
+  permissions,
+  customPermissions,
+  onEdit,
+  onDelete,
+  onCheckboxChange, // Added onCheckboxChange as a prop
+}) => {
   return (
     <div className="rbac-tabs-container">
       {/* Tabs */}
@@ -37,29 +45,33 @@ const PermissionsTabs = ({ activeTab, onTabChange, permissions, customPermission
 
       {/* Tab Content */}
       <div className="rbac-permissions-content">
-        {activeTab === "User Permissions" && (
+        {/* Only render the table for the active tab */}
+        {activeTab === "User Permissions" && permissions && (
           <PermissionsTable
-            permissions={permissions}
+            permissions={permissions} // User Permissions data
             onEdit={onEdit}
             onDelete={onDelete}
+            onCheckboxChange={onCheckboxChange} // Pass down onCheckboxChange
             tab="User Permissions"
           />
         )}
 
-        {activeTab === "Data Permissions" && (
+        {activeTab === "Data Permissions" && permissions && (
           <PermissionsTable
-            permissions={permissions} // Update with actual data for Data Permissions
+            permissions={permissions} // Data Permissions data
             onEdit={onEdit}
             onDelete={onDelete}
+            onCheckboxChange={onCheckboxChange} // Pass down onCheckboxChange
             tab="Data Permissions"
           />
         )}
 
-        {activeTab === "Additional Permissions" && (
+        {activeTab === "Additional Permissions" && customPermissions && (
           <PermissionsTable
-            permissions={customPermissions}
+            permissions={customPermissions} // Custom Permissions data
             onEdit={onEdit}
             onDelete={onDelete}
+            onCheckboxChange={onCheckboxChange} // Pass down onCheckboxChange
             tab="Additional Permissions"
           />
         )}

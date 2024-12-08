@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const PermissionForm = ({ permission = {}, onSave, onCancel, isEdit, availableRoles }) => {
+const PermissionForm = ({ permission = {}, onSave, onCancel, isEdit }) => {
   const [permissionName, setPermissionName] = useState(permission?.name || "");
   const [selectedRole, setSelectedRole] = useState(permission?.role || "");
   const [permissionActions, setPermissionActions] = useState(
@@ -13,24 +13,24 @@ const PermissionForm = ({ permission = {}, onSave, onCancel, isEdit, availableRo
     }
   );
 
-  // Reset state if permission is null or empty
   useEffect(() => {
-    if (!permission) {
-      setPermissionName("");
-      setSelectedRole("");
-      setPermissionActions({
-        read: false,
-        write: false,
-        delete: false,
-        create: false,
-        publish: false,
-      });
+    if (permission) {
+      setPermissionName(permission.name);
+      setSelectedRole(permission.role);
+      setPermissionActions(permission.actions || permissionActions);
     }
   }, [permission]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onSave({ name: permissionName, role: selectedRole, actions: permissionActions });
+  };
+
+  const handleCheckboxChange = (e, action) => {
+    setPermissionActions((prevActions) => ({
+      ...prevActions,
+      [action]: e.target.checked,
+    }));
   };
 
   return (
@@ -47,11 +47,9 @@ const PermissionForm = ({ permission = {}, onSave, onCancel, isEdit, availableRo
               required
             >
               <option value="">Select a role</option>
-              {availableRoles.map((role) => (
-                <option key={role} value={role}>
-                  {role}
-                </option>
-              ))}
+              <option value="Super Admin">Super Admin</option>
+              <option value="Admin">Admin</option>
+              <option value="User">User</option>
             </select>
           </div>
         )}
@@ -77,12 +75,7 @@ const PermissionForm = ({ permission = {}, onSave, onCancel, isEdit, availableRo
                 <input
                   type="checkbox"
                   checked={permissionActions[action]}
-                  onChange={() =>
-                    setPermissionActions((prev) => ({
-                      ...prev,
-                      [action]: !prev[action],
-                    }))
-                  }
+                  onChange={(e) => handleCheckboxChange(e, action)}
                 />
                 {action.charAt(0).toUpperCase() + action.slice(1)}
               </label>

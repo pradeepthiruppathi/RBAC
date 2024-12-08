@@ -1,98 +1,133 @@
-import React, { useState } from 'react';
-import '../styles/CreateUserForm.css'; // Update path accordingly
+import React, { useState, useEffect } from 'react';
 
-function CreateUserForm({ closeForm }) {
+function CreateUserForm({ roles = [], onCreateUser, closeForm }) {
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [role, setRole] = useState(''); // Start with an empty string
   const [permissions, setPermissions] = useState([]);
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [status, setStatus] = useState('active'); // Default status
 
-  const availablePermissions = ['Read', 'Write', 'Delete'];
+  const availablePermissions = ['Create', 'Read', 'Update', 'Delete'];
+
+  // Ensure that roles are available before setting the role state
+  useEffect(() => {
+    if (roles.length > 0) {
+      setRole(roles[0]); // Default to the first role if roles exist
+    }
+  }, [roles]);
 
   const handlePermissionChange = (permission) => {
-    if (permissions.includes(permission)) {
-      setPermissions(permissions.filter((p) => p !== permission));
-    } else {
-      setPermissions([...permissions, permission]);
-    }
+    setPermissions((prev) =>
+      prev.includes(permission)
+        ? prev.filter((perm) => perm !== permission)
+        : [...prev, permission]
+    );
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newUser = { name, email, permissions, status: 'Active' };
-    console.log('Creating new user:', newUser);
-
-    // Call closeForm to close the form after submission
-    if (closeForm) {
-      closeForm();
-    } else {
-      console.error('closeForm is not defined');
+    if (!name || !role) {
+      alert('Please fill out all required fields.');
+      return;
     }
+    const newUser = {
+      name,
+      role,
+      permissions,
+      status,
+    };
+    onCreateUser(newUser); // Pass new user data to the parent component
+    closeForm(); // Close the form after submission
   };
 
   return (
-    <div className="create-user-form-container">
-      <h3 className="create-user-form-header">Create User</h3>
+    <div className="create-user-form">
+      <h3>Create User</h3>
       <form onSubmit={handleSubmit}>
-        <div className="create-user-form-group">
-          <label className="create-user-form-label">Name:</label>
+        {/* Name Input */}
+        <div className="form-group">
+          <label htmlFor="name">Name:</label>
           <input
             type="text"
+            id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Enter user's name"
-            className="create-user-form-input"
+            placeholder="Enter user name"
             required
           />
         </div>
-        <div className="create-user-form-group">
-          <label className="create-user-form-label">Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter user's email"
-            className="create-user-form-input"
-            required
-          />
-        </div>
-        <div className="create-user-form-group">
-          <label className="create-user-form-label">Permissions:</label>
-          <div className="create-user-form-dropdown-container">
-            <div
-              className="create-user-form-dropdown-header"
-              onClick={() => setShowDropdown(!showDropdown)}
-            >
-              {permissions.length > 0 ? permissions.join(', ') : 'Select Permissions'}
-            </div>
-            {showDropdown && (
-              <div className="create-user-form-dropdown-options">
-                {availablePermissions.map((permission) => (
-                  <label key={permission} className="create-user-form-dropdown-option">
-                    <input
-                      type="checkbox"
-                      className="create-user-form-checkbox"
-                      checked={permissions.includes(permission)}
-                      onChange={() => handlePermissionChange(permission)}
-                    />
-                    {permission}
-                  </label>
-                ))}
-              </div>
+
+        {/* Role Selection */}
+        <div className="form-group">
+          <label htmlFor="role">Role:</label>
+          <select
+            id="role"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            disabled={roles.length === 0} // Disable if no roles are available
+          >
+            {roles.length > 0 ? (
+              roles.map((roleOption) => (
+                <option key={roleOption} value={roleOption}>
+                  {roleOption}
+                </option>
+              ))
+            ) : (
+              <option>No roles available</option>
             )}
+          </select>
+        </div>
+
+        {/* Permissions Checkbox */}
+        <div className="form-group">
+          <label>Permissions:</label>
+          <div className="permissions-container">
+            {availablePermissions.map((permission) => (
+              <label key={permission}>
+                <input
+                  type="checkbox"
+                  checked={permissions.includes(permission)}
+                  onChange={() => handlePermissionChange(permission)}
+                />
+                {permission}
+              </label>
+            ))}
           </div>
         </div>
-        <div className="create-user-form-buttons">
-          <button
-            type="submit"
-            className="create-user-form-submit-btn"
-          >
+
+        {/* Status Selection */}
+        <div className="form-group">
+          <label>Status:</label>
+          <div>
+            <label>
+              <input
+                type="radio"
+                value="active"
+                checked={status === 'active'}
+                onChange={() => setStatus('active')}
+              />
+              Active
+            </label>
+            <label>
+              <input
+                type="radio"
+                value="inactive"
+                checked={status === 'inactive'}
+                onChange={() => setStatus('inactive')}
+              />
+              Inactive
+            </label>
+          </div>
+        </div>
+
+        {/* Submit and Cancel Buttons */}
+        <div className="form-actions">
+          <button type="submit" className="btn btn-primary">
             Create
           </button>
           <button
             type="button"
-            className="create-user-form-cancel-btn"
-            onClick={closeForm} // Close the form when Cancel is clicked
+            className="btn btn-secondary"
+            onClick={closeForm}
           >
             Cancel
           </button>

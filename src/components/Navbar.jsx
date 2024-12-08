@@ -43,20 +43,7 @@ function Navbar({ onLogout = () => {}, onSearch }) {
         </Link>
       </div>
 
-      <div className="search-container">
-        <form onSubmit={handleSearchSubmit}>
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className="search-input"
-          />
-          <button type="submit" className="search-button">
-            <FaSearch />
-          </button>
-        </form>
-      </div>
+      
 
       <div className="navbar-links">
         <Link to="/users">

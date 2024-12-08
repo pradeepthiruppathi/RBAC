@@ -1,24 +1,26 @@
 import React, { useState } from 'react';
 import { FaPlusCircle, FaSearch, FaFileExport, FaEye, FaQuestionCircle, FaEdit, FaTrash } from 'react-icons/fa';
 import PopupForm from './PopupForm';
-import userRoleImage from '../Assets/user-role-image.png';
+import userRoleImage from '../Assets/user-role-image.png'; // Assuming you have an image for the user role
+import Permissions from './Permissions'; // Assuming you have a Permissions component
 
 function Roles() {
   const [roles, setRoles] = useState([
-    { id: 1, name: 'Super Admin', description: 'Full control over all systems and users.', permissions: 'Read, Write, Delete, Manage', type: 'System' },
-    { id: 2, name: 'Admin', description: 'Can manage users and moderate content.', permissions: 'Read, Write', type: 'Server' },
-    { id: 3, name: 'Editor', description: 'Can edit content and manage posts.', permissions: 'Write, Edit', type: 'Content' },
-    { id: 4, name: 'Viewer', description: 'Can only view content.', permissions: 'Read', type: 'User' },
+    { id: 1, name: 'Super Admin', description: 'Full control over all systems and users.', permissions: ['Read', 'Write', 'Delete', 'Create'], type: 'System' },
+    { id: 2, name: 'Admin', description: 'Can manage users and moderate content.', permissions: ['Read', 'Write'], type: 'Server' },
+    { id: 3, name: 'Editor', description: 'Can edit content and manage posts.', permissions: ['Write', 'Edit'], type: 'Content' },
+    { id: 4, name: 'Viewer', description: 'Can only view content.', permissions: ['Read'], type: 'User' },
   ]);
 
   const [showForm, setShowForm] = useState(false);
   const [formMode, setFormMode] = useState('create');
   const [currentRole, setCurrentRole] = useState(null);
   const [showTable, setShowTable] = useState(true);
+  const [showHelpModal, setShowHelpModal] = useState(false); // State to control Help Modal visibility
 
   const handleExport = () => {
     const csvContent = roles.map((role) =>
-      `${role.name},${role.description},${role.permissions},${role.type}`
+      `${role.name},${role.description},${role.permissions.join(', ')},${role.type}`
     ).join('\n');
     const blob = new Blob([`Role Name,Role Description,Permissions,Type\n${csvContent}`], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
@@ -33,7 +35,21 @@ function Roles() {
   };
 
   const handleHelp = () => {
-    alert('Here you can manage roles, permissions, and more!');
+    setShowHelpModal(true); // Show the Help Modal when clicked
+  };
+
+  const handleCloseHelpModal = () => {
+    setShowHelpModal(false); // Close the Help Modal
+  };
+
+  const handlePermissionToggle = (roleId, permission) => {
+    setRoles(roles.map(role => 
+      role.id === roleId 
+        ? { ...role, permissions: role.permissions.includes(permission) 
+            ? role.permissions.filter(p => p !== permission) 
+            : [...role.permissions, permission] } 
+        : role
+    ));
   };
 
   return (
@@ -96,7 +112,21 @@ function Roles() {
                 <tr key={role.id} className="roles-table-row">
                   <td>{role.name}</td>
                   <td>{role.description}</td>
-                  <td>{role.permissions}</td>
+                  <td className="roles-permissions">
+                    {['Dashboard', 'Write', 'Read', 'Delete'].map(permission => (
+                      <label key={permission} className="permission-label">
+                        <input
+                          type="checkbox"
+                          checked={role.permissions.includes(permission)}
+                          onChange={() => handlePermissionToggle(role.id, permission)}
+                          className="permission-checkbox"
+                        />
+                        <span className={`permission-button ${role.permissions.includes(permission) ? 'active' : ''}`}>
+                          {permission}
+                        </span>
+                      </label>
+                    ))}
+                  </td>
                   <td>{role.type}</td>
                   <td className="roles-action-icons">
                     <button
@@ -113,7 +143,7 @@ function Roles() {
                         setRoles(roles.filter((r) => r.id !== role.id))
                       }
                     >
-                      <FaTrash /> {/* Delete Icon */}
+                      <FaTrash /> {/* Trash Icon */}
                     </button>
                   </td>
                 </tr>
@@ -123,12 +153,25 @@ function Roles() {
         </div>
       )}
 
-      {/* Image Section */}
+      {/* Image Section (Last Element) */}
       <div className="roles-image-section">
         <div className="roles-image-container">
           <img src={userRoleImage} alt="User Role" />
         </div>
       </div>
+
+      {/* Help Modal */}
+      {showHelpModal && (
+        <div className="help-modal-overlay">
+          <div className="help-modal">
+            <h2>Help Guide</h2>
+            <p><strong>Roles:</strong> Roles determine the level of access a user has within the system.</p>
+            <p><strong>Permissions:</strong> Permissions define the actions a user can perform in the system. These include Read, Write, Create, and Delete permissions.</p>
+            <p><strong>Actions:</strong> Use the buttons to add, edit, delete, or export roles. Click on a role to edit its permissions and details.</p>
+            <button onClick={handleCloseHelpModal} className="help-modal-close">Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

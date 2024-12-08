@@ -22,11 +22,11 @@
   text-decoration: none;
   color: inherit;
 }
-
-/* Navbar Links */
 .navbar-links {
   display: flex;
   align-items: center;
+  justify-content: flex-end; /* Aligns the links to the right edge */
+  flex-grow: 1; /* Allows other elements to take up remaining space */
 }
 
 .navbar-links a {
@@ -40,7 +40,6 @@
   position: relative;
   transition: color 0.3s ease;
 }
-
 /* Navbar Action Styling (Logout Button) */
 .navbar-actions a {
   margin-left: 20px;
