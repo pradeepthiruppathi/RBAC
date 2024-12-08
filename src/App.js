@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { HashRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Layout from './components/Layout';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Layout from './components/Layout'; 
 import Dashboard from './components/Dashboard';
 import Users from './components/Users';
 import Permissions from './components/Permissions';
@@ -17,16 +17,16 @@ import './styles/roles.css';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
   const [searchTerm, setSearchTerm] = useState('');
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [data, setData] = useState(null); 
+  const [loading, setLoading] = useState(false); 
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
     if (isLoggedIn) {
       setLoading(true);
       const fetchData = async () => {
         try {
-          const response = await fetch('https://api.example.com/data');
+          const response = await fetch('https://api.example.com/data'); 
           const result = await response.json();
           setData(result);
           setLoading(false);
@@ -36,6 +36,7 @@ function App() {
           setLoading(false);
         }
       };
+
       fetchData();
     }
   }, [isLoggedIn]);
@@ -61,10 +62,18 @@ function App() {
   };
 
   return (
-    <Router>
+    <Router basename="/RBAC">
       <Routes>
-        <Route path="/" element={isLoggedIn ? <Navigate to="/home" /> : <LoginPage onLogin={handleLogin} />} />
-        <Route path="/home" element={isLoggedIn ? <HomePage /> : <Navigate to="/" />} />
+        <Route
+          path="/"
+          element={isLoggedIn ? <Navigate to="/home" /> : <LoginPage onLogin={handleLogin} />}
+        />
+        
+        <Route
+          path="/home"
+          element={isLoggedIn ? <HomePage /> : <Navigate to="/" />}
+        />
+        
         <Route
           path="/dashboard"
           element={isLoggedIn ? (
@@ -75,6 +84,7 @@ function App() {
             <Navigate to="/" />
           )}
         />
+        
         <Route
           path="/users"
           element={isLoggedIn ? (
@@ -85,6 +95,7 @@ function App() {
             <Navigate to="/" />
           )}
         />
+        
         <Route
           path="/permissions"
           element={isLoggedIn ? (
@@ -95,6 +106,7 @@ function App() {
             <Navigate to="/" />
           )}
         />
+        
         <Route
           path="/roles"
           element={isLoggedIn ? (
@@ -110,4 +122,4 @@ function App() {
   );
 }
 
-export
+export default App;
