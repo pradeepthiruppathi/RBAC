@@ -15,20 +15,26 @@ import './styles/login.css';
 import './styles/roles.css';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login status
-  const [searchTerm, setSearchTerm] = useState(''); // Track the search term
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true'); // Check login status in localStorage
+  const [searchTerm, setSearchTerm] = useState('');
   const [data, setData] = useState(null); // State for holding data from API
+  const [loading, setLoading] = useState(false); // Loading state for API call
+  const [error, setError] = useState(null); // Error state for API call
 
-  // Fetch data from API
+  // Fetch data from API when logged in
   useEffect(() => {
     if (isLoggedIn) {
+      setLoading(true);
       const fetchData = async () => {
         try {
           const response = await fetch('https://api.example.com/data'); // Replace with your actual API URL
           const result = await response.json();
-          setData(result); // Store the API result in the state
-        } catch (error) {
-          console.error('Error fetching data:', error);
+          setData(result);
+          setLoading(false);
+        } catch (err) {
+          console.error('Error fetching data:', err);
+          setError('Failed to load data');
+          setLoading(false);
         }
       };
 
@@ -36,16 +42,28 @@ function App() {
     }
   }, [isLoggedIn]); // Runs only when login status changes
 
+  // Handle login
   const handleLogin = () => {
-    setIsLoggedIn(true); // Set to true when login is successful
+    setIsLoggedIn(true);
+    localStorage.setItem('isLoggedIn', 'true'); // Store login status in localStorage
   };
 
+  // Handle logout
   const handleLogout = () => {
-    setIsLoggedIn(false); // Set to false when logout occurs
+    setIsLoggedIn(false);
+    localStorage.removeItem('isLoggedIn'); // Remove login status from localStorage
   };
 
+  // Handle search input
   const handleSearch = (term) => {
-    setSearchTerm(term); // Update the search term globally
+    setSearchTerm(term);
+  };
+
+  // Loading or error message display
+  const renderLoadingOrError = () => {
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>{error}</div>;
+    return null;
   };
 
   return (
@@ -68,7 +86,7 @@ function App() {
           path="/dashboard"
           element={isLoggedIn ? (
             <Layout onLogout={handleLogout} onSearch={handleSearch}>
-              <Dashboard searchTerm={searchTerm} data={data} /> {/* Pass API data to Dashboard */}
+              {renderLoadingOrError() || <Dashboard searchTerm={searchTerm} data={data} />} {/* Pass API data to Dashboard */}
             </Layout>
           ) : (
             <Navigate to="/" />
@@ -78,7 +96,7 @@ function App() {
           path="/users"
           element={isLoggedIn ? (
             <Layout onLogout={handleLogout} onSearch={handleSearch}>
-              <Users searchTerm={searchTerm} data={data} /> {/* Pass API data to Users */}
+              {renderLoadingOrError() || <Users searchTerm={searchTerm} data={data} />} {/* Pass API data to Users */}
             </Layout>
           ) : (
             <Navigate to="/" />
@@ -88,7 +106,7 @@ function App() {
           path="/permissions"
           element={isLoggedIn ? (
             <Layout onLogout={handleLogout} onSearch={handleSearch}>
-              <Permissions searchTerm={searchTerm} data={data} /> {/* Pass API data to Permissions */}
+              {renderLoadingOrError() || <Permissions searchTerm={searchTerm} data={data} />} {/* Pass API data to Permissions */}
             </Layout>
           ) : (
             <Navigate to="/" />
@@ -98,7 +116,7 @@ function App() {
           path="/roles"
           element={isLoggedIn ? (
             <Layout onLogout={handleLogout} onSearch={handleSearch}>
-              <Roles searchTerm={searchTerm} data={data} /> {/* Pass API data to Roles */}
+              {renderLoadingOrError() || <Roles searchTerm={searchTerm} data={data} />} {/* Pass API data to Roles */}
             </Layout>
           ) : (
             <Navigate to="/" />
