@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'; 
+import { Route, Routes, Navigate } from 'react-router-dom'; // Removed BrowserRouter
 import Layout from './components/Layout';
 import Dashboard from './components/Dashboard';
 import Users from './components/Users';
@@ -37,7 +37,7 @@ function App() {
         setLoading(false);
       }, 1000);
     }
-  }, [isLoggedIn]); // Empty dependency array, no need to track 'exampleData'
+  }, [isLoggedIn]);
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -59,58 +59,56 @@ function App() {
   };
 
   return (
-    <Router>
-      <Routes>
-        <Route 
-          path="/" 
-          element={isLoggedIn ? <Navigate to="/home" /> : <LoginPage onLogin={handleLogin} />} 
-        />
-        <Route 
-          path="/home" 
-          element={isLoggedIn ? <HomePage /> : <Navigate to="/" />} 
-        />
-        <Route
-          path="/dashboard"
-          element={isLoggedIn ? (
-            <Layout onLogout={handleLogout} onSearch={handleSearch}>
-              {renderLoadingOrError() || <Dashboard searchTerm={searchTerm} data={data} />}
-            </Layout>
-          ) : (
-            <Navigate to="/" />
-          )}
-        />
-        <Route
-          path="/users"
-          element={isLoggedIn ? (
-            <Layout onLogout={handleLogout} onSearch={handleSearch}>
-              {renderLoadingOrError() || <Users searchTerm={searchTerm} data={data} />}
-            </Layout>
-          ) : (
-            <Navigate to="/" />
-          )}
-        />
-        <Route
-          path="/permissions"
-          element={isLoggedIn ? (
-            <Layout onLogout={handleLogout} onSearch={handleSearch}>
-              {renderLoadingOrError() || <Permissions searchTerm={searchTerm} data={data} />}
-            </Layout>
-          ) : (
-            <Navigate to="/" />
-          )}
-        />
-        <Route
-          path="/roles"
-          element={isLoggedIn ? (
-            <Layout onLogout={handleLogout} onSearch={handleSearch}>
-              {renderLoadingOrError() || <Roles searchTerm={searchTerm} data={data} />}
-            </Layout>
-          ) : (
-            <Navigate to="/" /> 
-          )}
-        />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route 
+        path="/" 
+        element={isLoggedIn ? <Navigate to="/home" /> : <LoginPage onLogin={handleLogin} />} 
+      />
+      <Route 
+        path="/home" 
+        element={isLoggedIn ? <HomePage /> : <Navigate to="/" />} 
+      />
+      <Route
+        path="/dashboard"
+        element={isLoggedIn ? (
+          <Layout onLogout={handleLogout} onSearch={handleSearch}>
+            {renderLoadingOrError() || <Dashboard searchTerm={searchTerm} data={data} />}
+          </Layout>
+        ) : (
+          <Navigate to="/" />
+        )}
+      />
+      <Route
+        path="/users"
+        element={isLoggedIn ? (
+          <Layout onLogout={handleLogout} onSearch={handleSearch}>
+            {renderLoadingOrError() || <Users searchTerm={searchTerm} data={data} />}
+          </Layout>
+        ) : (
+          <Navigate to="/" />
+        )}
+      />
+      <Route
+        path="/permissions"
+        element={isLoggedIn ? (
+          <Layout onLogout={handleLogout} onSearch={handleSearch}>
+            {renderLoadingOrError() || <Permissions searchTerm={searchTerm} data={data} />}
+          </Layout>
+        ) : (
+          <Navigate to="/" />
+        )}
+      />
+      <Route
+        path="/roles"
+        element={isLoggedIn ? (
+          <Layout onLogout={handleLogout} onSearch={handleSearch}>
+            {renderLoadingOrError() || <Roles searchTerm={searchTerm} data={data} />}
+          </Layout>
+        ) : (
+          <Navigate to="/" /> 
+        )}
+      />
+    </Routes>
   );
 }
 
