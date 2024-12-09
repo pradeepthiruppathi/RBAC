@@ -12,16 +12,24 @@ const RBAC = ({ searchTerm, data }) => {
   const [newRolePermissions, setNewRolePermissions] = useState('');
 
   const handleAddRole = () => {
-    if (newRoleName && newRolePermissions) {
-      const newRole = {
-        id: roles.length + 1,
-        roleName: newRoleName,
-        permissions: newRolePermissions.split(',').map(permission => permission.trim())
-      };
-      setRoles([...roles, newRole]);
-      setNewRoleName('');
-      setNewRolePermissions('');
+    if (!newRoleName) {
+      alert('Role name is required');
+      return;
     }
+    if (!newRolePermissions) {
+      alert('Permissions are required');
+      return;
+    }
+
+    const newRole = {
+      id: roles.length + 1,
+      roleName: newRoleName,
+      permissions: newRolePermissions.split(',').map(permission => permission.trim())
+    };
+
+    setRoles([...roles, newRole]);
+    setNewRoleName('');
+    setNewRolePermissions('');
   };
 
   const handleRemoveRole = (roleId) => {

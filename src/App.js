@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'; // Added BrowserRouter
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'; 
 import Layout from './components/Layout';
 import Dashboard from './components/Dashboard';
 import Users from './components/Users';
@@ -7,7 +7,6 @@ import Permissions from './components/Permissions';
 import Roles from './components/Roles';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
-import RBAC from './components/RBAC'; // Import your RBAC component
 import './styles/dashboard.css';
 import './styles/permissions.css';
 import './styles/users.css';
@@ -18,10 +17,9 @@ import './styles/roles.css';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
   const [searchTerm, setSearchTerm] = useState('');
-  const [data, setData] = useState(null); // This will hold our example data
-  const [loading, setLoading] = useState(false); // We will simulate loading
+  const [data, setData] = useState(null); 
+  const [loading, setLoading] = useState(false); 
 
-  // Example static data
   const exampleData = [
     { id: 1, name: 'User One', role: 'Admin', permission: 'Full Access' },
     { id: 2, name: 'User Two', role: 'Editor', permission: 'Limited Access' },
@@ -32,9 +30,8 @@ function App() {
   useEffect(() => {
     if (isLoggedIn) {
       setLoading(true);
-      // Simulate loading delay with setTimeout
       setTimeout(() => {
-        setData(exampleData); // Set the static data after a delay
+        setData(exampleData); 
         setLoading(false);
       }, 1000);
     }
@@ -60,7 +57,7 @@ function App() {
   };
 
   return (
-    <Router> {/* Wrap the entire app in BrowserRouter */}
+    <Router> {/* Only one Router here */}
       <Routes>
         <Route 
           path="/" 
@@ -110,18 +107,8 @@ function App() {
             <Navigate to="/" /> 
           )}
         />
-        <Route
-          path="/RBAC" // Define your RBAC route
-          element={isLoggedIn ? (
-            <Layout onLogout={handleLogout} onSearch={handleSearch}>
-              {renderLoadingOrError() || <RBAC searchTerm={searchTerm} data={data} />} {/* Render RBAC component */}
-            </Layout>
-          ) : (
-            <Navigate to="/" />
-          )}
-        />
       </Routes>
-    </Router> 
+    </Router>
   );
 }
 
