@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/RBAC/static/css/main.80a9ad94.css",
+    "main.css": "/RBAC/static/css/main.890dcb3c.css",
     "main.js": "/RBAC/static/js/main.e07af873.js",
     "static/media/Login_page.jpg": "/RBAC/static/media/Login_page.4c1a1e4a3a90245ee168.jpg",
     "static/media/user-role-image.png": "/RBAC/static/media/user-role-image.be5e5a7aa15817f93cbb.png",
@@ -9,11 +9,11 @@
     "static/media/active-users.png": "/RBAC/static/media/active-users.53d107a868de6abacb72.png",
     "static/media/permissions.png": "/RBAC/static/media/permissions.0fbe7dc329f992e2f5ba.png",
     "index.html": "/RBAC/index.html",
-    "main.80a9ad94.css.map": "/RBAC/static/css/main.80a9ad94.css.map",
+    "main.890dcb3c.css.map": "/RBAC/static/css/main.890dcb3c.css.map",
     "main.e07af873.js.map": "/RBAC/static/js/main.e07af873.js.map"
   },
   "entrypoints": [
-    "static/css/main.80a9ad94.css",
+    "static/css/main.890dcb3c.css",
     "static/js/main.e07af873.js"
   ]
 }
