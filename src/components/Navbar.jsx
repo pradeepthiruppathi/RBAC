@@ -1,28 +1,18 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types'; // For type-checking props
 import { Link, useNavigate } from 'react-router-dom';
-import { FaUser, FaCog, FaLock, FaSignOutAlt, FaSearch } from 'react-icons/fa';
+import { FaUser, FaCog, FaLock, FaSignOutAlt } from 'react-icons/fa';
 
-function Navbar({ onLogout = () => {}, onSearch }) {
-  const [searchTerm, setSearchTerm] = useState('');
+function Navbar({ onLogout = () => {} }) {
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
-  const navigate = useNavigate(); // To navigate after logout confirmation
+  const navigate = useNavigate(); // For navigation after logout confirmation
 
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value); // Update the search term as the user types
-  };
-
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    if (onSearch) {
-      onSearch(searchTerm); // Trigger the search function if provided
-    }
-  };
-
+  // Show logout confirmation modal
   const handleLogoutClick = () => {
-    setShowModal(true); // Show the logout confirmation modal
+    setShowModal(true);
   };
 
+  // Confirm logout action
   const confirmLogout = () => {
     if (typeof onLogout === 'function') {
       onLogout(); // Trigger the logout function if provided
@@ -31,8 +21,9 @@ function Navbar({ onLogout = () => {}, onSearch }) {
     navigate('/logout'); // Redirect to the logout page
   };
 
+  // Cancel logout action
   const cancelLogout = () => {
-    setShowModal(false); // Close the modal if the user cancels
+    setShowModal(false);
   };
 
   return (
@@ -43,17 +34,13 @@ function Navbar({ onLogout = () => {}, onSearch }) {
         </Link>
       </div>
 
-      
-
       <div className="navbar-links">
         <Link to="/users">
           <FaUser /> &nbsp;Users
         </Link>
-        
         <Link to="/roles">
           <FaCog /> &nbsp;Roles
         </Link>
-
         <Link to="/permissions">
           <FaLock /> &nbsp;Permissions
         </Link>
@@ -70,8 +57,14 @@ function Navbar({ onLogout = () => {}, onSearch }) {
         <div className="modal-overlay">
           <div className="modal-container">
             <h3>Are you sure you want to log out?</h3>
-            <button onClick={confirmLogout}>Yes</button>
-            <button onClick={cancelLogout}>No</button>
+            <div className="modal-actions">
+              <button onClick={confirmLogout} className="confirm-button">
+                Yes
+              </button>
+              <button onClick={cancelLogout} className="cancel-button">
+                No
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -81,8 +74,7 @@ function Navbar({ onLogout = () => {}, onSearch }) {
 
 // Prop type validation for Navbar
 Navbar.propTypes = {
-  onLogout: PropTypes.func, // Function to handle logout (default provided if not passed)
-  onSearch: PropTypes.func, // Function to handle search
+  onLogout: PropTypes.func, // Function to handle logout
 };
 
 export default Navbar;

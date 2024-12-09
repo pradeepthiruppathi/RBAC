@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { FaPlusCircle, FaSearch, FaFileExport, FaEye, FaQuestionCircle, FaEdit, FaTrash } from 'react-icons/fa';
 import PopupForm from './PopupForm';
 import userRoleImage from '../Assets/user-role-image.png'; // Assuming you have an image for the user role
-import Permissions from './Permissions'; // Assuming you have a Permissions component
 
 function Roles() {
   const [roles, setRoles] = useState([
@@ -16,7 +15,8 @@ function Roles() {
   const [formMode, setFormMode] = useState('create');
   const [currentRole, setCurrentRole] = useState(null);
   const [showTable, setShowTable] = useState(true);
-  const [showHelpModal, setShowHelpModal] = useState(false); // State to control Help Modal visibility
+  const [showHelpModal, setShowHelpModal] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleExport = () => {
     const csvContent = roles.map((role) =>
@@ -31,15 +31,19 @@ function Roles() {
   };
 
   const handleSearch = () => {
-    alert('Search functionality coming soon!');
+    const filteredRoles = roles.filter(role =>
+      role.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      role.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setRoles(filteredRoles);
   };
 
   const handleHelp = () => {
-    setShowHelpModal(true); // Show the Help Modal when clicked
+    setShowHelpModal(true);
   };
 
   const handleCloseHelpModal = () => {
-    setShowHelpModal(false); // Close the Help Modal
+    setShowHelpModal(false);
   };
 
   const handlePermissionToggle = (roleId, permission) => {
@@ -73,9 +77,17 @@ function Roles() {
         <button className="roles-action-button roles-export-role" onClick={handleExport}>
           <FaFileExport /> Export Roles
         </button>
-        <button className="roles-action-button roles-search-role" onClick={handleSearch}>
-          <FaSearch /> Search Roles
-        </button>
+        <div className="roles-search-container">
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search Roles"
+          />
+          <button className="roles-action-button roles-search-role" onClick={handleSearch}>
+            <FaSearch /> Search
+          </button>
+        </div>
         <button className="roles-action-button roles-help-role" onClick={handleHelp}>
           <FaQuestionCircle /> Help
         </button>

@@ -42,8 +42,6 @@ function Users() {
     },
   ]);
 
-  const [roles, setRoles] = useState(['Admin', 'Editor', 'Viewer']);
-  const [loading, setLoading] = useState(false);
   const [modalType, setModalType] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -85,8 +83,6 @@ function Users() {
       return a.name.localeCompare(b.name);
     }
   });
-
-  if (loading) return <p>Loading...</p>;
 
   return (
     <div className="users-container">

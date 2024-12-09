@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "../styles/permissions.css";
 import ActionButtons from "./ActionButtons";
 import PermissionsTabs from "./PermissionsTabs";
-import PermissionForm from "./PermissionForm";
 
 const Permissions = () => {
   const [activeTab, setActiveTab] = useState("User Permissions");
@@ -12,16 +11,9 @@ const Permissions = () => {
     { role: "Editor", read: true, write: true, delete: false, create: true, publish: true },
     { role: "Viewer", read: true, write: false, delete: false, create: false, publish: false },
   ]);
-  const [customPermissions, setCustomPermissions] = useState([
-    { name: "Create", enabled: true },
-    { name: "Update", enabled: false },
-    { name: "Publish", enabled: true },
-    { name: "Delete", enabled: false },
-  ]);
   const [isFormVisible, setFormVisible] = useState(false);
   const [isEditMode, setEditMode] = useState(false);
   const [currentPermission, setCurrentPermission] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(true); // Simulate admin role (can be dynamically set)
 
   // Handle the creation of a new permission
   const handleCreatePermission = () => {
@@ -82,7 +74,6 @@ const Permissions = () => {
         activeTab={activeTab}
         onTabChange={(tab) => setActiveTab(tab)} // Handle tab change
         permissions={permissions}
-        customPermissions={customPermissions}
         onEdit={handleEditPermission} // Handle edit action on the tab
         onDelete={handleDeletePermission} // Handle delete action on the tab
       />
@@ -112,7 +103,6 @@ const Permissions = () => {
                       type="text"
                       value={currentPermission.role}
                       onChange={(e) => setCurrentPermission({ ...currentPermission, role: e.target.value })}
-                      disabled={!isAdmin} // Only allow editing if admin
                     />
                   </td>
                   <td>
@@ -120,7 +110,6 @@ const Permissions = () => {
                       type="checkbox"
                       checked={currentPermission.read}
                       onChange={(e) => handleCheckboxChange(e, "read")}
-                      disabled={!isAdmin} // Only allow editing if admin
                     />
                   </td>
                   <td>
@@ -128,7 +117,6 @@ const Permissions = () => {
                       type="checkbox"
                       checked={currentPermission.write}
                       onChange={(e) => handleCheckboxChange(e, "write")}
-                      disabled={!isAdmin} // Only allow editing if admin
                     />
                   </td>
                   <td>
@@ -136,7 +124,6 @@ const Permissions = () => {
                       type="checkbox"
                       checked={currentPermission.delete}
                       onChange={(e) => handleCheckboxChange(e, "delete")}
-                      disabled={!isAdmin} // Only allow editing if admin
                     />
                   </td>
                   <td>
@@ -144,7 +131,6 @@ const Permissions = () => {
                       type="checkbox"
                       checked={currentPermission.create}
                       onChange={(e) => handleCheckboxChange(e, "create")}
-                      disabled={!isAdmin} // Only allow editing if admin
                     />
                   </td>
                   <td>
@@ -152,7 +138,6 @@ const Permissions = () => {
                       type="checkbox"
                       checked={currentPermission.publish}
                       onChange={(e) => handleCheckboxChange(e, "publish")}
-                      disabled={!isAdmin} // Only allow editing if admin
                     />
                   </td>
                 </tr>
@@ -161,7 +146,7 @@ const Permissions = () => {
 
             {/* Save and Cancel Buttons */}
             <div className="permission-actions">
-              <button onClick={handleSavePermission} disabled={!isAdmin}>
+              <button onClick={handleSavePermission}>
                 Save
               </button>
               <button onClick={handleCancel}>Cancel</button>

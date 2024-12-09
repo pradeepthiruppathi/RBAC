@@ -74,6 +74,7 @@ code {
     padding: 10px;
   }
 }
+<<<<<<< HEAD
 
 /* Adjust navbar on smaller screens */
 @media (max-width: 768px) {
@@ -95,4 +96,16 @@ code {
   .navbar-logo h1 {
     font-size: 1.5rem;
   }
+=======
+@media (max-width: 768px) {
+    /* Adjust layout for mobile screens */
+    .navbar {
+        /* Example of adjusting navbar for mobile view */
+        flex-direction: column;
+    }
+    .content {
+        /* Adjust content layout */
+        padding: 10px;
+    }
+>>>>>>> d301933bb1a8dcdab0e755b12787bce161caab75
 }
