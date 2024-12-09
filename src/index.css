@@ -45,39 +45,8 @@ code {
   .card {
     flex: 1 1 calc(50% - 20px); /* 2 cards per row for tablets */
   }
-}
 
-@media (max-width: 480px) {
-  .card {
-    flex: 1 1 100%; /* 1 card per row for mobile */
-  }
-
-  /* Make the body padding smaller on mobile */
-  body {
-    padding: 10px;
-  }
-
-  /* Adjust font sizes for smaller screens */
-  h1 {
-    font-size: 1.5rem;
-  }
-
-  p {
-    font-size: 1rem;
-  }
-}
-
-/* Example of full-width layout for mobile */
-@media (max-width: 480px) {
-  .full-width {
-    width: 100%;
-    padding: 10px;
-  }
-}
-<<<<<<< HEAD
-
-/* Adjust navbar on smaller screens */
-@media (max-width: 768px) {
+  /* Adjust navbar on smaller screens */
   .navbar {
     flex-direction: column;
     align-items: center;
@@ -96,16 +65,36 @@ code {
   .navbar-logo h1 {
     font-size: 1.5rem;
   }
-=======
-@media (max-width: 768px) {
-    /* Adjust layout for mobile screens */
-    .navbar {
-        /* Example of adjusting navbar for mobile view */
-        flex-direction: column;
-    }
-    .content {
-        /* Adjust content layout */
-        padding: 10px;
-    }
->>>>>>> d301933bb1a8dcdab0e755b12787bce161caab75
+
+  /* Adjust layout for mobile screens */
+  .content {
+    padding: 10px;
+  }
+}
+
+/* Add more mobile-specific rules for smaller screens */
+@media (max-width: 480px) {
+  .card {
+    flex: 1 1 100%; /* 1 card per row for mobile */
+  }
+
+  /* Make the body padding smaller on mobile */
+  body {
+    padding: 10px;
+  }
+
+  /* Adjust font sizes for smaller screens */
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  /* Example of full-width layout for mobile */
+  .full-width {
+    width: 100%;
+    padding: 10px;
+  }
 }
