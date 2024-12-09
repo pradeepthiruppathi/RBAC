@@ -4,11 +4,12 @@
   justify-content: space-between;
   align-items: center;
   background-color: white;
-  padding: 2px 20px;
+  padding: 10px 20px;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-left: 15px;
   margin-top: 15px;
+  flex-wrap: wrap; /* Allows for responsive layout adjustments */
 }
 
 /* Navbar Logo */
@@ -22,11 +23,14 @@
   text-decoration: none;
   color: inherit;
 }
+
+/* Navbar Links */
 .navbar-links {
   display: flex;
   align-items: center;
-  justify-content: flex-end; /* Aligns the links to the right edge */
-  flex-grow: 1; /* Allows other elements to take up remaining space */
+  justify-content: flex-end;
+  flex-grow: 1;
+  margin-right: 20px;
 }
 
 .navbar-links a {
@@ -40,6 +44,27 @@
   position: relative;
   transition: color 0.3s ease;
 }
+
+/* Hover Effect: Underline on Navbar Links */
+.navbar-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #8E44AD;
+  transition: width 0.3s ease;
+}
+
+.navbar-links a:hover {
+  color: #8E44AD;
+}
+
+.navbar-links a:hover::after {
+  width: 100%;
+}
+
 /* Navbar Action Styling (Logout Button) */
 .navbar-actions a {
   margin-left: 20px;
@@ -80,15 +105,16 @@
 .search-container {
   display: flex;
   align-items: center;
-  margin-right: 300px;
+  margin-right: 20px; /* Adjusted from 300px */
 }
 
 .search-input {
-  padding: 10px 70px;
+  padding: 10px 20px;
   font-size: 1rem;
   border-radius: 5px;
   border: 1px solid #ccc;
   outline: none;
+  width: 200px;
 }
 
 .search-input:focus {
@@ -160,40 +186,33 @@
   background-color: #9B59B6;
 }
 
-/* Navbar Links */
-.navbar-links {
-  display: flex;
-  align-items: center;
-}
+/* Adjust navbar on smaller screens */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+  }
 
-.navbar-links a {
-  margin-right: 20px;
-  color: #2C3E50;
-  text-decoration: none;
-  font-size: 1.1rem;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  position: relative;
-  transition: color 0.3s ease;
-}
+  .navbar-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+  }
 
-/* Hover Effect: Underline */
-.navbar-links a::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: #8E44AD;
-  transition: width 0.3s ease;
-}
+  .navbar-actions {
+    margin-top: 10px;
+  }
 
-.navbar-links a:hover {
-  color: #8E44AD; /* Change link color on hover */
-}
+  .navbar-logo h1 {
+    font-size: 1.5rem;
+  }
 
-.navbar-links a:hover::after {
-  width: 100%; /* Expand the underline to full width */
+  .search-container {
+    margin-right: 0;
+  }
+
+  .search-input {
+    width: 150px; /* Adjusted search bar width for smaller screens */
+  }
 }

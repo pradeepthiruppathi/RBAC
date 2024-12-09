@@ -345,3 +345,25 @@ color: white;
 .permission-button:hover {
 background-color: #e7e7e7;
 }
+  /* Adjust navbar on smaller screens */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .navbar-links {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .navbar-actions {
+      margin-top: 10px;
+    }
+  
+    .navbar-logo h1 {
+      font-size: 1.5rem;
+    }
+  }
+  
