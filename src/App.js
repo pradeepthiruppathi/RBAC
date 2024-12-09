@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react';
-<<<<<<< HEAD
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'; // Changed to BrowserRouter
-=======
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'; 
->>>>>>> d301933bb1a8dcdab0e755b12787bce161caab75
 import Layout from './components/Layout';
 import Dashboard from './components/Dashboard';
 import Users from './components/Users';
@@ -21,11 +17,6 @@ import './styles/roles.css';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
   const [searchTerm, setSearchTerm] = useState('');
-<<<<<<< HEAD
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-=======
   const [data, setData] = useState(null); // This will hold our example data
   const [loading, setLoading] = useState(false); // We will simulate loading
 
@@ -36,29 +27,10 @@ function App() {
     { id: 3, name: 'User Three', role: 'Viewer', permission: 'View Only' },
     { id: 4, name: 'User Four', role: 'Admin', permission: 'Full Access' },
   ];
->>>>>>> d301933bb1a8dcdab0e755b12787bce161caab75
 
   useEffect(() => {
     if (isLoggedIn) {
       setLoading(true);
-<<<<<<< HEAD
-      const fetchData = async () => {
-        try {
-          const response = await fetch('https://api.example.com/data');
-          const result = await response.json();
-          setData(result);
-          setLoading(false);
-        } catch (err) {
-          console.error('Error fetching data:', err);
-          setError('Failed to load data');
-          setLoading(false);
-        }
-      };
-
-      fetchData();
-    }
-  }, [isLoggedIn]);
-=======
       // Simulate loading delay with setTimeout
       setTimeout(() => {
         setData(exampleData); // Set the static data after a delay
@@ -66,7 +38,6 @@ function App() {
       }, 1000);
     }
   }, [isLoggedIn]); // Empty dependency array, no need to track 'exampleData'
->>>>>>> d301933bb1a8dcdab0e755b12787bce161caab75
 
   const handleLogin = () => {
     setIsLoggedIn(true);
