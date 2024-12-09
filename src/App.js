@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom'; // Removed BrowserRouter
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'; // Added BrowserRouter
 import Layout from './components/Layout';
 import Dashboard from './components/Dashboard';
 import Users from './components/Users';
@@ -7,6 +7,7 @@ import Permissions from './components/Permissions';
 import Roles from './components/Roles';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
+import RBAC from './components/RBAC'; // Import your RBAC component
 import './styles/dashboard.css';
 import './styles/permissions.css';
 import './styles/users.css';
@@ -59,56 +60,68 @@ function App() {
   };
 
   return (
-    <Routes>
-      <Route 
-        path="/" 
-        element={isLoggedIn ? <Navigate to="/home" /> : <LoginPage onLogin={handleLogin} />} 
-      />
-      <Route 
-        path="/home" 
-        element={isLoggedIn ? <HomePage /> : <Navigate to="/" />} 
-      />
-      <Route
-        path="/dashboard"
-        element={isLoggedIn ? (
-          <Layout onLogout={handleLogout} onSearch={handleSearch}>
-            {renderLoadingOrError() || <Dashboard searchTerm={searchTerm} data={data} />}
-          </Layout>
-        ) : (
-          <Navigate to="/" />
-        )}
-      />
-      <Route
-        path="/users"
-        element={isLoggedIn ? (
-          <Layout onLogout={handleLogout} onSearch={handleSearch}>
-            {renderLoadingOrError() || <Users searchTerm={searchTerm} data={data} />}
-          </Layout>
-        ) : (
-          <Navigate to="/" />
-        )}
-      />
-      <Route
-        path="/permissions"
-        element={isLoggedIn ? (
-          <Layout onLogout={handleLogout} onSearch={handleSearch}>
-            {renderLoadingOrError() || <Permissions searchTerm={searchTerm} data={data} />}
-          </Layout>
-        ) : (
-          <Navigate to="/" />
-        )}
-      />
-      <Route
-        path="/roles"
-        element={isLoggedIn ? (
-          <Layout onLogout={handleLogout} onSearch={handleSearch}>
-            {renderLoadingOrError() || <Roles searchTerm={searchTerm} data={data} />}
-          </Layout>
-        ) : (
-          <Navigate to="/" /> 
-        )}
-      />
-    </Routes>
+    <Router> {/* Wrap the entire app in BrowserRouter */}
+      <Routes>
+        <Route 
+          path="/" 
+          element={isLoggedIn ? <Navigate to="/home" /> : <LoginPage onLogin={handleLogin} />} 
+        />
+        <Route 
+          path="/home" 
+          element={isLoggedIn ? <HomePage /> : <Navigate to="/" />} 
+        />
+        <Route
+          path="/dashboard"
+          element={isLoggedIn ? (
+            <Layout onLogout={handleLogout} onSearch={handleSearch}>
+              {renderLoadingOrError() || <Dashboard searchTerm={searchTerm} data={data} />}
+            </Layout>
+          ) : (
+            <Navigate to="/" />
+          )}
+        />
+        <Route
+          path="/users"
+          element={isLoggedIn ? (
+            <Layout onLogout={handleLogout} onSearch={handleSearch}>
+              {renderLoadingOrError() || <Users searchTerm={searchTerm} data={data} />}
+            </Layout>
+          ) : (
+            <Navigate to="/" />
+          )}
+        />
+        <Route
+          path="/permissions"
+          element={isLoggedIn ? (
+            <Layout onLogout={handleLogout} onSearch={handleSearch}>
+              {renderLoadingOrError() || <Permissions searchTerm={searchTerm} data={data} />}
+            </Layout>
+          ) : (
+            <Navigate to="/" />
+          )}
+        />
+        <Route
+          path="/roles"
+          element={isLoggedIn ? (
+            <Layout onLogout={handleLogout} onSearch={handleSearch}>
+              {renderLoadingOrError() || <Roles searchTerm={searchTerm} data={data} />}
+            </Layout>
+          ) : (
+            <Navigate to="/" /> 
+          )}
+        />
+        <Route
+          path="/RBAC" // Define your RBAC route
+          element={isLoggedIn ? (
+            <Layout onLogout={handleLogout} onSearch={handleSearch}>
+              {renderLoadingOrError() || <RBAC searchTerm={searchTerm} data={data} />} {/* Render RBAC component */}
+            </Layout>
+          ) : (
+            <Navigate to="/" />
+          )}
+        />
+      </Routes>
+    </Router> 
   );
 }
 
